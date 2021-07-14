@@ -1,6 +1,6 @@
 {
   "name": "@mupi/schematics",
-  "version": "0.0.2-alpha.10",
+  "version": "0.0.2-alpha.20",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -10,7 +10,8 @@
     "postbuild": "npm run copy:collection && npm run copy:lib",
     "build": "rm -rf dist && tsc --project tsconfig.json",
     "copy:collection": "cpx src/collection.json dist && cpx 'src/lib/**/schema.json' dist/lib",
-    "copy:lib": "cpx 'src/lib/**/{files,workspace}/**/*.*' dist/lib && cpx 'src/lib/**/{files,workspace}/**/.!(gitignore)' dist/lib"
+    "copy:lib": "cpx 'src/lib/**/{files,workspace}/**/*.*' dist/lib && cpx 'src/lib/**/{files,workspace}/**/.!(gitignore)' dist/lib",
+    "prepublish": "npm run build"
   },
   "keywords": [],
   "author": "",
