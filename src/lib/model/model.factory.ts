@@ -41,7 +41,7 @@ function transform(source: ModelOptions): ModelOptions {
 }
 
 function generateModel(options: ModelOptions) {
-  return (context: SchematicContext) => apply(url(join('./files' as Path, options.service, `${options.name}.ts`)), [
+  return (context: SchematicContext) => apply(url(join('./files' as Path, 'model')), [
     template({
       ...strings,
       ...options,
@@ -51,7 +51,7 @@ function generateModel(options: ModelOptions) {
 }
 
 function generateInfrastructure(options: ModelOptions) {
-  return (context: SchematicContext) => apply(url(join('./files' as Path, options.service, `${options.name}.tf`)), [
+  return (context: SchematicContext) => apply(url(join('./files' as Path, options.service)), [
     template({
       ...strings,
       ...options,

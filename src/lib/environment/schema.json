@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsMupiModel",
-  "title": "Mupi Model Options Schema",
+  "id": "SchematicsMupiEnv",
+  "title": "Mupi Env Options Schema",
   "type": "object",
   "properties": {
     "name": {
@@ -11,15 +11,20 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use for the model?"
-    },
-    "env": {
-      "type": "string",
-      "description": "The env to create the model."
+      "x-prompt": "Please specify your application name"
     },
     "path": {
       "type": "string",
       "description": "The path to create the model."
+    },
+    "env": {
+      "type": "string",
+      "description": "The path to create the model.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the env?"
     },
     "service": {
       "type": "string",

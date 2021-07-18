@@ -5,6 +5,16 @@
       "factory": "./lib/application/application.factory#main",
       "description": "Create a Mupi application.",
       "schema": "./lib/application/schema.json"
+    },
+    "model": {
+      "factory": "./lib/model/model.factory#main",
+      "description": "Create a Mupi model.",
+      "schema": "./lib/model/schema.json"
+    },
+    "env": {
+      "factory": "./lib/model/environment.factory#main",
+      "description": "Create a Mupi env.",
+      "schema": "./lib/env/schema.json"
     }
   }
 }
