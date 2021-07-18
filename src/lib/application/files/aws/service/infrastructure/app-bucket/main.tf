@@ -1,5 +1,5 @@
 locals {
-  bucket_name = "${var.env}-${var.name}-app-log-${uuid()}"
+  bucket_name = "${var.env}-${var.name}-app-${uuid()}"
 }
 
 data "aws_iam_policy_document" "infrastructure_log_bucket" {
