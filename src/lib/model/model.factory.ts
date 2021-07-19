@@ -14,7 +14,7 @@ import {
 import { Location, NameParser } from '../../utils';
 import { mergeSourceRoot } from '../../utils';
 import { ModelOptions } from './model.schema';
-import {DEFAULT_ENV_NAME, DEFAULT_ENV_PATH_NAME, DEFAULT_MODEL_PATH_NAME} from "../defaults";
+import {DEFAULT_BACKEND_PATH_NAME, DEFAULT_ENV_NAME, DEFAULT_ENV_PATH_NAME, DEFAULT_MODEL_PATH_NAME} from "../defaults";
 
 export function main(options: ModelOptions): Rule {
   options = transform(options);
@@ -24,6 +24,7 @@ export function main(options: ModelOptions): Rule {
         mergeSourceRoot(options),
         mergeWith(generateModel(options)),
         mergeWith(generateInfrastructure(options)),
+        mergeWith(generateBackendStartup(options)),
       ]),
     )(tree, context);
   };
@@ -57,5 +58,15 @@ function generateInfrastructure(options: ModelOptions) {
       ...options,
     }),
     move(strings.dasherize(join(options.path as Path, DEFAULT_ENV_PATH_NAME, options.env || DEFAULT_ENV_NAME))),
+  ])(context);
+}
+
+function generateBackendStartup(options: ModelOptions) {
+  return (context: SchematicContext) => apply(url(join('./files' as Path, "startup")), [
+    template({
+      ...strings,
+      ...options,
+    }),
+    move(strings.dasherize(join(options.path as Path, DEFAULT_BACKEND_PATH_NAME))),
   ])(context);
 }

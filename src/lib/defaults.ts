@@ -6,3 +6,5 @@ export const DEFAULT_PATH_NAME = '.';
 export const DEFAULT_MODEL_PATH_NAME = 'model';
 export const DEFAULT_ENV_PATH_NAME = 'env';
 export const DEFAULT_ENV_NAME = 'prod';
+export const DEFAULT_BACKEND_PATH_NAME = 'src/backend';
+export const DEFAULT_FRONTEND_PATH_NAME = 'src/frontend';
