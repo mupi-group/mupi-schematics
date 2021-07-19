@@ -4,16 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "init": "sh bin/init-terraform.sh",
-    "infra": "sh bin/publish-terraform.sh",
-    "destroy": "sh bin/destroy-terraform.sh",
-    "build:backend": "tsc"
+    "build:backend": "rm -rf build && tsc"
   },
   "keywords": [],
   "author": "<%= author %>",
   "license": "ISC",
   "devDependencies": {
-    "@mupi/cli": "^0.0.2-alpha.40",
+    "@mupi/cli": "^0.0.2-alpha.42",
     "@types/eslint": "^7.28.0",
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
