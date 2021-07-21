@@ -1,6 +1,6 @@
 {
   "name": "@mupi/schematics",
-  "version": "0.0.2-alpha.43",
+  "version": "0.0.2-alpha.44",
   "description": "",
   "main": "dist/index.js",
   "files": [
