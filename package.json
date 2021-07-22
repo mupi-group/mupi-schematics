@@ -1,6 +1,6 @@
 {
   "name": "@mupi/schematics",
-  "version": "0.0.2-alpha.47",
+  "version": "0.0.2-alpha.48",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -19,7 +19,6 @@
   "dependencies": {
     "@angular-devkit/core": "^12.1.1",
     "@angular-devkit/schematics": "^12.1.1",
-    "@mupi/core": "^0.0.2-alpha.10",
     "jsonc-parser": "^3.0.0"
   },
   "devDependencies": {
