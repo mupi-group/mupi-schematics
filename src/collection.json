@@ -17,7 +17,7 @@
       "schema": "./lib/env/schema.json"
     },
     "graphql-schema": {
-      "factory": "./lib/model/graphql-schema.factory#main",
+      "factory": "./lib/graphql-schema/graphql-schema.factory#main",
       "description": "Generate a Mupi env.",
       "schema": "./lib/graphql-schema/schema.json"
     }
