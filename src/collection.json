@@ -15,6 +15,11 @@
       "factory": "./lib/model/environment.factory#main",
       "description": "Create a Mupi env.",
       "schema": "./lib/env/schema.json"
+    },
+    "graphql-schema": {
+      "factory": "./lib/model/graphql-schema.factory#main",
+      "description": "Generate a Mupi env.",
+      "schema": "./lib/graphql-schema/schema.json"
     }
   }
 }

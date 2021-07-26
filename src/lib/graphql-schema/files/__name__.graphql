@@ -1,0 +1,7 @@
+type <%= classify(name) %> {
+    <%= for(let item in items) { =>
+
+<%= item.key %>: <%= item.graphqlType %>
+
+<%= } %>
+}
