@@ -13,7 +13,7 @@ import {
     url,
 } from '@angular-devkit/schematics';
 import {Location, mergeSourceRoot, NameParser} from '../../utils';
-import {ExpressServiceOptions} from './express-service.schema.d.ts';
+import {ExpressServiceOptions} from './express-service.schema';
 import {DEFAULT_BACKEND_PATH_NAME, DEFAULT_SERVICE} from "../defaults";
 
 export function main(options: ExpressServiceOptions): Rule {
@@ -45,7 +45,7 @@ function transform(source: ExpressServiceOptions): ExpressServiceOptions {
     return target;
 }
 
-function generate(options: GraphqlSchemaOptions) {
+function generate(options: ExpressServiceOptions) {
     return (context: SchematicContext) => apply(url(join('./files' as Path, options.service)), [
         template({
             ...strings,
