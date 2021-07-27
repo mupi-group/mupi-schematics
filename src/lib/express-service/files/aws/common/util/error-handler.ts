@@ -1,6 +1,6 @@
 import prettyjson from 'prettyjson';
 import { Request, Response } from 'express';
-import { logger } from '@common/util/logger';
+import { logger } from './logger';
 import { ApolloError } from 'apollo-server-express';
 
 /**

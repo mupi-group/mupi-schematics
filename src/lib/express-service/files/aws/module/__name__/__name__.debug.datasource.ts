@@ -10,25 +10,11 @@ import {
     MutationDelete<%= classify(name) %>
 } from "../../type/module/<%= name %>/<%= name %>.resolver.type";
 
-/* related modules */
-import { DynamoDBDataSource } from 'apollo-datasource-dynamodb';
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import {CognitoIdentityCredentials} from "aws-sdk";
-import ClientConfiguration = CognitoIdentityCredentials.ClientConfiguration;
 
 /**
  * @description <%= classify(name) %> datasource for query modifying the <%= name %>
  */
-export class <%= classify(name) %>Datasource extends DynamoDBDataSource<<%= classify(name) %>>{
-
-    constructor(config?: ClientConfiguration) {
-        super('<%= name %>', [
-            {
-                AttributeName: 'id',
-                KeyType: 'HASH',
-            },
-        ], config);
-    }
+export class <%= classify(name) %>DebugDatasource {
 
     /**
      * @description Query specific <%= name %>

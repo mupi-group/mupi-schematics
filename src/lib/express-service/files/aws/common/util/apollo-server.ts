@@ -7,13 +7,13 @@ import {
     ApolloServerPlugin,
     StartApolloServerParam,
     StartApolloServerReturned,
-} from '@type/apollo-server.type';
+} from '../../type/util/apollo-server.type';
 
 /* module dependencies */
 import { ApolloServer, gql } from 'apollo-server-express';
 import { DocumentNode } from 'graphql';
-import { logger } from '@common/util/logger';
-import { DatasourceCollection } from '@type/datasource';
+import { logger } from './logger';
+import { DatasourceCollection } from '../../type/datasource';
 
 /**
  * @description Generate the graphql typeDefs from *.graphql files
@@ -42,10 +42,9 @@ export async function startApolloServer({
                                             modules,
                                             config,
                                         }: StartApolloServerParam): Promise<StartApolloServerReturned> {
-    // import root typeDef for extend
-    const rootTypeDefs = [generateTypeDefs('root.graphql')];
+    const rootTypeDefs = [];
     const rootResolvers = [];
-    let rootDataSources: DatasourceCollection = {};
+    let rootDataSources: DatasourceCollection = {} as DatasourceCollection;
 
     modules.forEach(({ resolvers, dataSources, typeDefs }) => {
         rootTypeDefs.push(...typeDefs);
