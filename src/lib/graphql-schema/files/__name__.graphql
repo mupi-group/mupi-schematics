@@ -3,13 +3,20 @@ type <%= classify(name) %> {
 <%= graphqlSchemaItems %>
 }
 
+type <%= classify(name) %>Paginated {
+  items: [<%= classify(name) %>]
+  cursor: Int
+  pointer: Int
+  ended: Boolean
+}
+
 input <%= classify(name) %>Input {
 <%= graphqlSchemaInputItems %>
 }
 
 type Query {
   <%= name %>(id: String!): <%= classify(name) %>
-  <%= name %>s: [<%= classify(name) %>]
+  <%= name %>s(<%= name %>Input: <%= classify(name) %>Input, cursor: Int, pointer: Int): <%= classify(name) %>Paginated
 }
 
 type Mutation {
