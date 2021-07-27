@@ -34,7 +34,7 @@ function transform(source: GraphqlSchemaOptions): GraphqlSchemaOptions {
     const location: Location = new NameParser().parse(target);
     target.name = strings.dasherize(location.name);
     target.path = strings.dasherize(location.path);
-    target.items = JSON.parse(source.items as string);
+    target.items = JSON.parse(source.items as unknown as string);
     target.graphqlSchemaItems = target.items.map(_ => `${_.key}: ${_.graphqlType}`).join('\n')
 
     return target;
