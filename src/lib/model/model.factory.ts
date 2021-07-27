@@ -24,7 +24,6 @@ export function main(options: ModelOptions): Rule {
         mergeSourceRoot(options),
         mergeWith(generateModel(options)),
         mergeWith(generateInfrastructure(options)),
-        mergeWith(generateBackendStartup(options)),
       ]),
     )(tree, context);
   };
@@ -58,15 +57,5 @@ function generateInfrastructure(options: ModelOptions) {
       ...options,
     }),
     move(strings.dasherize(join(options.path as Path, DEFAULT_ENV_PATH_NAME, options.env || DEFAULT_ENV_NAME))),
-  ])(context);
-}
-
-function generateBackendStartup(options: ModelOptions) {
-  return (context: SchematicContext) => apply(url(join('./files' as Path, "startup")), [
-    template({
-      ...strings,
-      ...options,
-    }),
-    move(strings.dasherize(join(options.path as Path, DEFAULT_BACKEND_PATH_NAME))),
   ])(context);
 }
