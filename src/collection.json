@@ -20,6 +20,11 @@
       "factory": "./lib/graphql-schema/graphql-schema.factory#main",
       "description": "Generate a Mupi env.",
       "schema": "./lib/graphql-schema/schema.json"
+    },
+    "express-service": {
+      "factory": "./lib/express-service/express-service.factory#main",
+      "description": "Generate a Mupi env.",
+      "schema": "./lib/express-service/schema.json"
     }
   }
 }
