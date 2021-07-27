@@ -18,8 +18,12 @@
       "description": "The path to generate the graphql type."
     },
     "items": {
-      "type": "array",
+      "type": "string",
       "description": "The items to generate the graphql type."
+    },
+    "graphqlSchemaItems": {
+      "type": "string",
+      "description": "The graphql formatted items to generate the graphql type."
     }
   },
   "required": ["name"]

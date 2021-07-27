@@ -16,4 +16,5 @@ export interface GraphqlSchemaOptions {
   id?: boolean;
   listed?: boolean;
 }[];
+  graphqlSchemaItems?: string;
 }
