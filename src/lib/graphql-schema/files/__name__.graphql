@@ -9,7 +9,7 @@ input <%= classify(name) %>Input {
 
 type Query {
   <%= name %>(id: String!): <%= classify(name) %>
-  <%= name %>s: [%= classify(name) %]
+  <%= name %>s: [<%= classify(name) %>]
 }
 
 type Mutation {
