@@ -1,3 +1,5 @@
+"""<%= title %>"""
+"""<%= subtitle %>"""
 type <%= classify(name) %> {
   <%= graphqlSchemaItems %>
 }

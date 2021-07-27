@@ -35,7 +35,7 @@ function transform(source: GraphqlSchemaOptions): GraphqlSchemaOptions {
     target.name = strings.dasherize(location.name);
     target.path = strings.dasherize(location.path);
     target.items = JSON.parse(source.items as unknown as string);
-    target.graphqlSchemaItems = target.items.map(_ => `${_.key}: ${_.graphqlType}`).join('\n  ')
+    target.graphqlSchemaItems = target.items.map(_ => `"""${_.description}"""\n  ${_.key}: ${_.graphqlType}`).join('\n  ')
 
     return target;
 }
