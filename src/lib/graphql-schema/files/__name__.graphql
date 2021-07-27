@@ -13,7 +13,7 @@ type Query {
 }
 
 type Mutation {
-  create<%= name %>(<%= classify(name) %>Input: <%= classify(name) %>Input): Boolean!
-  update<%= name %>(<%= graphqlSchemaIDPropertyKey %>: String!, <%= classify(name) %>Input: <%= classify(name) %>Input): Boolean!
-  delete<%= name %>(<%= graphqlSchemaIDPropertyKey %>: String!): Boolean!
+  create<%= classify(name) %>(<%= name %>Input: <%= classify(name) %>Input): Boolean!
+  update<%= classify(name) %>(<%= graphqlSchemaIDPropertyKey %>: String!, <%= name %>Input: <%= classify(name) %>Input): Boolean!
+  delete<%= classify(name) %>(<%= graphqlSchemaIDPropertyKey %>: String!): Boolean!
 }
