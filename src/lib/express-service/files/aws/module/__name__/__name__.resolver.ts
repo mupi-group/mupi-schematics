@@ -1,90 +1,106 @@
 /* types import */
 import type { IResolvers } from '@graphql-tools/utils';
-import {
-    <%= classify(name) %>,
-    <%= classify(name) %>Input,
-    <%= classify(name) %>Paginated,
-    QuerySpecific<%= classify(name) %>Params,
-    Query<%= classify(name) %>sParams,
-    MutationCreate<%= classify(name) %>,
-    MutationUpdate<%= classify(name) %>,
-    MutationDelete<%= classify(name) %>
-} from "../../type/module/<%= name %>/<%= name %>.resolver.type";
-import type { DatasourceCollection } from '../../type/datasource';
 import type { Request } from 'express';
+import {
+    <%=  classify(name) %>,
+    QuerySpecific<%=  classify(name) %>Params,
+    Query<%=  classify(name) %>sParams,
+    MutationCreate<%=  classify(name) %>, <%=  classify(name) %>Paginated, MutationDelete<%=  classify(name) %>, MutationUpdate<%=  classify(name) %>,
+} from '../../type/module/<%=  name %>/<%=  name %>.resolver.type';
+import type { DatasourceCollection } from '../../type/datasource';
 
 /**
- * @description <%= classify(name) %> resolver
+ * @description <%=  classify(name) %> resolver
  */
-export const <%= name %>Resolver: IResolvers = {
+export const <%=  name %>Resolver: IResolvers = {
     Query: {
         /**
-         * @description Query specific <%= name %>
+         * @description Query specific <%=  name %>
          * @param parent
          * @param params
-         * @param <%= name %>Datasource
+         * @param <%=  name %>Datasource
          * @param requestContext
          */
-        async <%= name %>(
+        async <%=  name %>(
             parent,
-            params: QuerySpecific<%= classify(name) %>Params,
-            { dataSources: { <%= name %>Datasource }, requestContext }:
+            params: QuerySpecific<%=  classify(name) %>Params,
+            { dataSources: { <%=  name %>Datasource, <%=  name %>DebugDatasource } }:
                 { dataSources: DatasourceCollection, requestContext: Request },
-        ): Promise<<%= classify(name) %>> {},
+        ): Promise<<%=  classify(name) %>> {
+            return process.env.NODE_ENV !== 'dev'
+                ? <%=  name %>Datasource.querySpecific<%=  classify(name) %>(params)
+                : <%=  name %>DebugDatasource.querySpecific<%=  classify(name) %>(params);
+        },
 
         /**
-         * @description Query <%= name %>s
+         * @description Query <%=  name %>s
          * @param parent
          * @param params
-         * @param <%= name %>Datasource
+         * @param <%=  name %>Datasource
          * @param requestContext
          */
-        async <%= name %>s(
+        async <%=  name %>s(
             parent,
-            params: Query<%= classify(name) %>sParams,
-            { dataSources: { <%= name %>Datasource }, requestContext }:
+            params: Query<%=  classify(name) %>sParams,
+            { dataSources: { <%=  name %>Datasource, <%=  name %>DebugDatasource } }:
                 { dataSources: DatasourceCollection, requestContext: Request },
-        ): Promise<<%= classify(name) %>> {},
+        ): Promise<<%=  classify(name) %>Paginated> {
+            return process.env.NODE_ENV !== 'dev'
+                ? <%=  name %>Datasource.queryPaginated<%=  classify(name) %>s(params)
+                : <%=  name %>DebugDatasource.queryPaginated<%=  classify(name) %>s(params);
+        },
     },
     Mutation: {
         /**
-         * @description Mutation create <%= name %>
+         * @description Mutation create <%=  name %>
          * @param parent
          * @param params
-         * @param <%= name %>Datasource
+         * @param <%=  name %>Datasource
          * @param requestContext
          */
-        async create<%= classify(name) %>(
+        async create<%=  classify(name) %>(
             parent,
-            params: MutationCreate<%= classify(name) %>,
-            { dataSources: { <%= name %>Datasource }, requestContext }:
+            params: MutationCreate<%=  classify(name) %>,
+            { dataSources: { <%=  name %>Datasource, <%=  name %>DebugDatasource } }:
                 { dataSources: DatasourceCollection, requestContext: Request },
-        ): Promise<boolean> {},
+        ): Promise<boolean> {
+            return process.env.NODE_ENV !== 'dev'
+                ? <%=  name %>Datasource.create<%=  classify(name) %>(params)
+                : <%=  name %>DebugDatasource.create<%=  classify(name) %>(params);
+        },
         /**
-         * @description Mutation update <%= name %>
+         * @description Mutation update <%=  name %>
          * @param parent
          * @param params
-         * @param <%= name %>Datasource
+         * @param <%=  name %>Datasource
          * @param requestContext
          */
-        async update<%= classify(name) %>(
+        async update<%=  classify(name) %>(
             parent,
-            params: MutationCreate<%= classify(name) %>,
-            { dataSources: { <%= name %>Datasource }, requestContext }:
+            params: MutationUpdate<%=  classify(name) %>,
+            { dataSources: { <%=  name %>Datasource, <%=  name %>DebugDatasource } }:
                 { dataSources: DatasourceCollection, requestContext: Request },
-        ): Promise<boolean> {},
+        ): Promise<boolean> {
+            return process.env.NODE_ENV !== 'dev'
+                ? <%=  name %>Datasource.update<%=  classify(name) %>(params)
+                : <%=  name %>DebugDatasource.update<%=  classify(name) %>(params);
+        },
         /**
-         * @description Mutation delete <%= name %>
+         * @description Mutation delete <%=  name %>
          * @param parent
          * @param params
-         * @param <%= name %>Datasource
+         * @param <%=  name %>Datasource
          * @param requestContext
          */
-        async delete<%= classify(name) %>(
+        async delete<%=  classify(name) %>(
             parent,
-            params: MutationCreate<%= classify(name) %>,
-            { dataSources: { <%= name %>Datasource }, requestContext }:
+            params: MutationDelete<%=  classify(name) %>,
+            { dataSources: { <%=  name %>Datasource, <%=  name %>DebugDatasource } }:
                 { dataSources: DatasourceCollection, requestContext: Request },
-        ): Promise<boolean> {},
-    }
+        ): Promise<boolean> {
+            return process.env.NODE_ENV !== 'dev'
+                ? <%=  name %>Datasource.delete<%=  classify(name) %>(params)
+                : <%=  name %>DebugDatasource.delete<%=  classify(name) %>(params);
+        },
+    },
 };

@@ -30,6 +30,8 @@
     "tsconfig-paths": "^3.9.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.955.0",
+    "uuid": "^8.3.2",
     "@types/prettyjson": "^0.0.30",
     "apollo-datasource-dynamodb": "^1.1.0",
     "apollo-datasource-rest": "^3.0.0",

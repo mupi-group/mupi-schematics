@@ -5,9 +5,8 @@ type <%= classify(name) %> {
 
 type <%= classify(name) %>Paginated {
   items: [<%= classify(name) %>]
-  cursor: Int
-  pointer: Int
-  ended: Boolean
+  count: Int
+  endKey: String
 }
 
 input <%= classify(name) %>Input {
