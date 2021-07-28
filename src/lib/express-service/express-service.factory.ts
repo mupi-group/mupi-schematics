@@ -36,10 +36,10 @@ function transform(source: ExpressServiceOptions): ExpressServiceOptions {
     target.path = strings.dasherize(location.path);
     target.service = !!target.service ? target.service : DEFAULT_SERVICE;
     target.items = JSON.parse(source.items as unknown as string);
-    target.typescriptTypeItems = target.items.map(_ => `// ${_.description}\n${_.key}: ${_.typescriptType};`).join('\n')
+    target.typescriptTypeItems = target.items.map(_ => `  // ${_.description}\n  ${_.key}: ${_.typescriptType};`).join('\n')
     target.typescriptTypeInputItems = target.items
         .filter(_ => !_.id)
-        .map(_ => `// ${_.description}\n${_.key}?: ${_.typescriptType};`).join('\n')
+        .map(_ => `  // ${_.description}\n  ${_.key}?: ${_.typescriptType};`).join('\n')
     target.typescriptTypeIDPropertyKey = target.items.find(_ => _.id).key;
 
     return target;

@@ -1,16 +1,16 @@
 export type <%= classify(name) %> = {
-    <%= typescriptTypeItems %>
+<%= typescriptTypeItems %>
 };
 
 export type <%= classify(name) %>Paginated = {
-    items: <%= classify(name) %>[];
-    cursor: number;
-    pointer: number;
-    ended: boolean;
+  items: <%= classify(name) %>[];
+  cursor: number;
+  pointer: number;
+  ended: boolean;
 };
 
 export type <%= classify(name) %>Input = {
-    <%= typescriptTypeInputItems %>
+<%= typescriptTypeInputItems %>
 };
 
 export type QuerySpecific<%= classify(name) %>Params = {<%= typescriptTypeIDPropertyKey %>: string};
