@@ -14,7 +14,7 @@ input <%= classify(name) %>Input {
 }
 
 type Query {
-  <%= name %>(id: String!): <%= classify(name) %>
+  <%= name %>(<%= graphqlSchemaIDPropertyKey %>: String!): <%= classify(name) %>
   <%= name %>s(<%= name %>Input: <%= classify(name) %>Input, cursor: Int, pointer: Int): <%= classify(name) %>Paginated
 }
 

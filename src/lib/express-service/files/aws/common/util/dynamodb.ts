@@ -1,3 +1,4 @@
+import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import { <%= classify(name) %>Input } from '../../type/module/<%= name %>/<%= name %>.resolver.type';
 
 export const formatScanInputParams = (input: <%= classify(name) %>Input) => {
