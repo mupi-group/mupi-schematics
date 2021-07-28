@@ -20,18 +20,6 @@
     "items": {
       "type": "string",
       "description": "The items to generate the graphql type."
-    },
-    "graphqlSchemaItems": {
-      "type": "string",
-      "description": "The graphql formatted items to generate the graphql type."
-    },
-    "graphqlSchemaInputItems": {
-      "type": "string",
-      "description": "The graphql formatted input items to generate the graphql type."
-    },
-    "graphqlSchemaIDPropertyKey": {
-      "type": "string",
-      "description": "The graphql update id property items to generate the graphql type."
     }
   },
   "required": ["name"]

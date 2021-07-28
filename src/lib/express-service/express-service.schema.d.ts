@@ -4,6 +4,10 @@ export interface ExpressServiceOptions {
    */
   name: string;
   /**
+   * The env to create the model.
+   */
+  env?: string;
+  /**
    * The path to create the env.
    */
   path?: string;
@@ -23,4 +27,5 @@ export interface ExpressServiceOptions {
   typescriptTypeItems?: string;
   typescriptTypeInputItems?: string;
   typescriptTypeIDPropertyKey?: string;
+  databaseAttributes?: string;
 }

@@ -14,7 +14,7 @@ import {
 } from '@angular-devkit/schematics';
 import {Location, mergeSourceRoot, NameParser} from '../../utils';
 import {ExpressServiceOptions} from './express-service.schema';
-import {DEFAULT_BACKEND_PATH_NAME, DEFAULT_SERVICE} from "../defaults";
+import {DEFAULT_BACKEND_PATH_NAME, DEFAULT_ENV_NAME, DEFAULT_ENV_PATH_NAME, DEFAULT_SERVICE} from "../defaults";
 
 export function main(options: ExpressServiceOptions): Rule {
     options = transform(options);
@@ -23,6 +23,7 @@ export function main(options: ExpressServiceOptions): Rule {
             chain([
                 mergeSourceRoot(options),
                 mergeWith(generate(options)),
+                mergeWith(generateDatabaseInfrastructure(options)),
             ]),
         )(tree, context);
     };
@@ -41,6 +42,22 @@ function transform(source: ExpressServiceOptions): ExpressServiceOptions {
         .filter(_ => !_.id)
         .map(_ => `  // ${_.description}\n  ${_.key}?: ${_.typescriptType};`).join('\n')
     target.typescriptTypeIDPropertyKey = target.items.find(_ => _.id).key;
+    target.databaseAttributes = target.items.map(_ => {
+        switch (_.typescriptType) {
+            case "string":
+            case "string[]":
+            case "number[]":
+                return '  attribute {\n' +
+                    '    name = "'+ _.key +'"\n' +
+                    '    type = "S"\n' +
+                    '  }'
+            case "number":
+                return '  attribute {\n' +
+                    '    name = "'+ _.key +'"\n' +
+                    '    type = "N"\n' +
+                    '  }'
+        }
+    }).join('\n')
 
     return target;
 }
@@ -52,5 +69,15 @@ function generate(options: ExpressServiceOptions) {
             ...options,
         }),
         move(strings.dasherize(join(options.path as Path, DEFAULT_BACKEND_PATH_NAME, options.name))),
+    ])(context);
+}
+
+function generateDatabaseInfrastructure(options: ExpressServiceOptions) {
+    return (context: SchematicContext) => apply(url(join('./files' as Path, 'database', options.service)), [
+        template({
+            ...strings,
+            ...options,
+        }),
+        move(strings.dasherize(join(options.path as Path, DEFAULT_ENV_PATH_NAME, options.env || DEFAULT_ENV_NAME))),
     ])(context);
 }
