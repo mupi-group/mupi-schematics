@@ -5,7 +5,20 @@ module "lambda_function" {
   publish = true
   function_name = "${var.env}-${var.name}-${var.model}"
   handler = "index.main"
-  source_path = "${path.root}/../../build/backend/${var.model}/index.js"
+  source_path = [
+    "${path.root}/../../src/backend/${var.model}/build",
+    {
+      path     = "${path.root}/../../src/backend/${var.model}",
+      commands = [
+        "npm install",
+        ":zip"
+      ],
+      patterns = [
+        "!.*/.*\\.txt",    # Skip all txt files recursively
+        "node_modules/.+", # Include all node_modules
+      ],
+    }
+  ]
 
   # store lambda in S3
   store_on_s3 = true

@@ -50,6 +50,6 @@ function generate(options: GraphqlSchemaOptions) {
             ...strings,
             ...options,
         }),
-        move(strings.dasherize(join(options.path as Path, DEFAULT_BACKEND_PATH_NAME, options.name, 'module', options.name))),
+        move(strings.dasherize(join(options.path as Path, DEFAULT_BACKEND_PATH_NAME, options.name, 'src'))),
     ])(context);
 }

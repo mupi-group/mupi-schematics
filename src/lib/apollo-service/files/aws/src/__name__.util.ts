@@ -1,7 +1,11 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { <%= classify(name) %>Input } from '../../type/module/<%= name %>/<%= name %>.resolver.type';
+import {
+  UpdateExpression,
+  ExpressionAttributeNameMap,
+  ExpressionAttributeValueMap,
+} from 'aws-sdk/clients/dynamodb';
+import { <=% classify(name) =>Input } from './<=% name =>.type';
 
-export const formatScanInputParams = (input: <%= classify(name) %>Input) => {
+export const formatScanInputParams = (input: <=% classify(name) =>Input) => {
   const result = {};
   Object.keys(input)
     .forEach((key) => {
@@ -23,14 +27,14 @@ export const formatScanInputParams = (input: <%= classify(name) %>Input) => {
   return result;
 };
 
-export const formatUpdateInputParams = (input: <%= classify(name) %>Input) => {
-  let updateExpression: DocumentClient.UpdateExpression = '';
-  const expressionAttributeNames: DocumentClient.ExpressionAttributeNameMap = {};
-  const expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap = {};
+export const formatUpdateInputParams = (input: <=% classify(name) =>Input) => {
+  let updateExpression: UpdateExpression = '';
+  const expressionAttributeNames: ExpressionAttributeNameMap = {};
+  const expressionAttributeValues: ExpressionAttributeValueMap = {};
 
   Object.keys(input).forEach((key) => {
     // handle expression
-    if (!updateExpression.length) updateExpression += ` SET #${key} = :${key}`;
+    if (!updateExpression) updateExpression += ` SET #${key} = :${key}`;
     updateExpression += `, SET #${key} = :${key}`;
 
     expressionAttributeNames[`#${key}`] = key;

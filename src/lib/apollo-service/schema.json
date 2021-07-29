@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsMupiExpressService",
-  "title": "Mupi ExpressService Options Schema",
+  "id": "SchematicsMupiApolloService",
+  "title": "Mupi ApolloService Options Schema",
   "type": "object",
   "properties": {
     "name": {

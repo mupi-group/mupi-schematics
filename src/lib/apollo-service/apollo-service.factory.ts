@@ -13,10 +13,10 @@ import {
     url,
 } from '@angular-devkit/schematics';
 import {Location, mergeSourceRoot, NameParser} from '../../utils';
-import {ExpressServiceOptions} from './express-service.schema';
+import {ApolloServiceOptions} from './apollo-service.schema';
 import {DEFAULT_BACKEND_PATH_NAME, DEFAULT_ENV_NAME, DEFAULT_ENV_PATH_NAME, DEFAULT_SERVICE} from "../defaults";
 
-export function main(options: ExpressServiceOptions): Rule {
+export function main(options: ApolloServiceOptions): Rule {
     options = transform(options);
     return (tree: Tree, context: SchematicContext) => {
         return branchAndMerge(
@@ -29,8 +29,8 @@ export function main(options: ExpressServiceOptions): Rule {
     };
 }
 
-function transform(source: ExpressServiceOptions): ExpressServiceOptions {
-    const target: ExpressServiceOptions = Object.assign({}, source);
+function transform(source: ApolloServiceOptions): ApolloServiceOptions {
+    const target: ApolloServiceOptions = Object.assign({}, source);
 
     const location: Location = new NameParser().parse(target);
     target.name = strings.dasherize(location.name);
@@ -43,6 +43,7 @@ function transform(source: ExpressServiceOptions): ExpressServiceOptions {
         .map(_ => `  // ${_.description}\n  ${_.key}?: ${_.typescriptType};`).join('\n')
     target.typescriptTypeIDPropertyKey = target.items.find(_ => _.id).key;
     target.databaseAttributes = target.items.map(_ => {
+        if (_.id) return '';
         switch (_.typescriptType) {
             case "string":
             case "string[]":
@@ -62,7 +63,7 @@ function transform(source: ExpressServiceOptions): ExpressServiceOptions {
     return target;
 }
 
-function generate(options: ExpressServiceOptions) {
+function generate(options: ApolloServiceOptions) {
     return (context: SchematicContext) => apply(url(join('./files' as Path, options.service)), [
         template({
             ...strings,
@@ -72,7 +73,7 @@ function generate(options: ExpressServiceOptions) {
     ])(context);
 }
 
-function generateDatabaseInfrastructure(options: ExpressServiceOptions) {
+function generateDatabaseInfrastructure(options: ApolloServiceOptions) {
     return (context: SchematicContext) => apply(url(join('./files' as Path, 'database', options.service)), [
         template({
             ...strings,

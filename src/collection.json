@@ -21,10 +21,10 @@
       "description": "Generate a Mupi env.",
       "schema": "./lib/graphql-schema/schema.json"
     },
-    "express-service": {
-      "factory": "./lib/express-service/express-service.factory#main",
+    "apollo-service": {
+      "factory": "./lib/apollo-service/apollo-service.factory#main",
       "description": "Generate a Mupi env.",
-      "schema": "./lib/express-service/schema.json"
+      "schema": "./lib/apollo-service/schema.json"
     }
   }
 }

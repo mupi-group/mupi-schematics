@@ -1,4 +1,4 @@
-export interface ExpressServiceOptions {
+export interface ApolloServiceOptions {
   /**
    * Application Name
    */
