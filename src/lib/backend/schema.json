@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsMupiBackend",
+  "title": "Mupi Backend Options Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the graphql schema.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name of graphql schema would you like to generate?"
+    },
+    "env": {
+      "type": "string",
+      "description": "The env to create the model."
+    },
+    "path": {
+      "type": "string",
+      "description": "The path to generate the graphql type."
+    },
+    "items": {
+      "type": "string",
+      "description": "The items to generate the graphql type."
+    }
+  },
+  "required": ["name"]
+}

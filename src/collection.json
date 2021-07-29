@@ -25,6 +25,11 @@
       "factory": "./lib/apollo-service/apollo-service.factory#main",
       "description": "Generate a Mupi env.",
       "schema": "./lib/apollo-service/schema.json"
+    },
+    "backend": {
+      "factory": "./lib/backend/backend.factory#main",
+      "description": "Generate a Mupi env.",
+      "schema": "./lib/backend/schema.json"
     }
   }
 }
