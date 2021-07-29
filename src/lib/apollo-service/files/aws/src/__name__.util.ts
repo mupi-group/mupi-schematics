@@ -3,9 +3,9 @@ import {
   ExpressionAttributeNameMap,
   ExpressionAttributeValueMap,
 } from 'aws-sdk/clients/dynamodb';
-import { <=% classify(name) =>Input } from './<=% name =>.type';
+import { <%= classify(name) =>Input } from './<%= name =>.type';
 
-export const formatScanInputParams = (input: <=% classify(name) =>Input) => {
+export const formatScanInputParams = (input: <%= classify(name) =>Input) => {
   const result = {};
   Object.keys(input)
     .forEach((key) => {
@@ -27,7 +27,7 @@ export const formatScanInputParams = (input: <=% classify(name) =>Input) => {
   return result;
 };
 
-export const formatUpdateInputParams = (input: <=% classify(name) =>Input) => {
+export const formatUpdateInputParams = (input: <%= classify(name) =>Input) => {
   let updateExpression: UpdateExpression = '';
   const expressionAttributeNames: ExpressionAttributeNameMap = {};
   const expressionAttributeValues: ExpressionAttributeValueMap = {};
