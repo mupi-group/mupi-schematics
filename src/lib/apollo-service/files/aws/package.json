@@ -1,5 +1,5 @@
 {
-  "name": "<%= name =>-lambda-service",
+  "name": "<%= name %>-lambda-service",
   "version": "0.0.1",
   "scripts": {
     "build": "tsc"

@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-lambda';
 
-export const <%= name =>TypeDefs = gql`
+export const <%= name %>TypeDefs = gql`
   """<%= title %>, <%= subtitle %>"""
   type <%= classify(name) %> {
   <%= graphqlSchemaItems %>

@@ -1,7 +1,7 @@
-module "<%= name =>_table" {
+module "<%= name %>_table" {
   source = "terraform-aws-modules/dynamodb-table/aws"
 
-  name     = "<%= name =>"
+  name     = "<%= name %>"
   hash_key = "id"
 
   stream_enabled = true
@@ -16,7 +16,7 @@ module "<%= name =>_table" {
 }
 
 resource "aws_lambda_event_source_mapping" "<%= name %>_source_mapping" {
-  event_source_arn  = module.<%= name =>_table.dynamodb_table_stream_arn
-  function_name     = module.<%= name =>.lambda_arn
+  event_source_arn  = module.<%= name %>_table.dynamodb_table_stream_arn
+  function_name     = module.<%= name %>.lambda_arn
   starting_position = "LATEST"
 }
