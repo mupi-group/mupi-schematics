@@ -11,6 +11,10 @@ const server = new ApolloServer({
   dataSources: () => ({
     <%= name %>Datasource: new <%= classify(name) %>Datasource(),
   }),
+  formatError: (error) => {
+    console.dir(error, { depth: 4 });
+    return error;
+  },
 } as Config<LambdaContextFunctionParams>);
 
 exports.main = server.createHandler();
