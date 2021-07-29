@@ -20,6 +20,24 @@ module "lambda_function" {
     }
   ]
 
+  attach_policy_json = true
+  policy_json        = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:ListStreams"
+            ],
+            "Resource": ["*"]
+        }
+    ]
+}
+EOF
   # store lambda in S3
   store_on_s3 = true
 //  s3_bucket = data.aws_s3_bucket.serverless_artifacts_bucket.id
