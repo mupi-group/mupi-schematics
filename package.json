@@ -1,7 +1,7 @@
 {
   "name": "@mupi/schematics",
-  "version": "0.0.3",
-  "description": "",
+  "version": "0.0.4",
+  "description": "The submodule of @mupi/cli, maintains some template schematics.",
   "main": "dist/index.js",
   "files": [
     "dist/**/*"
@@ -14,7 +14,7 @@
     "prepublish": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "mupijs",
   "license": "ISC",
   "dependencies": {
     "@angular-devkit/core": "^12.1.1",
