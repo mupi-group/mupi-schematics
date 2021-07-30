@@ -23,7 +23,7 @@ export function main(options: ModelOptions): Rule {
       chain([
         mergeSourceRoot(options),
         mergeWith(generateModel(options)),
-        mergeWith(generateInfrastructure(options)),
+        // mergeWith(generateInfrastructure(options)),
       ]),
     )(tree, context);
   };

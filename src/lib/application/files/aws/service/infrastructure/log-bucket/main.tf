@@ -30,7 +30,7 @@ module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 1.0"
 
-  bucket        = local.bucket_name
+  bucket        = substr(local.bucket_name, 0, 60)
   policy        = data.aws_iam_policy_document.infrastructure_log_bucket.json
   force_destroy = true
 }

@@ -97,7 +97,7 @@ export class <%= classify(name) %>Datasource {
     try {
       const { <%= name %>Input } = input;
 
-      const { Attributes } = await this.client.put({
+      const result = await this.client.put({
         TableName: this.TABLE_NAME,
         Item: {
           ...<%= name %>Input,
@@ -105,7 +105,7 @@ export class <%= classify(name) %>Datasource {
         },
       }).promise();
 
-      return !!Attributes;
+      return !!result;
     } catch (error) {
       console.dir(error, { depth: 4 });
       return error;
@@ -126,7 +126,7 @@ export class <%= classify(name) %>Datasource {
         expressionAttributeNames,
       } = formatInputParams(<%= name %>Input, true);
 
-      const { Attributes } = await this.client.update({
+      const result = await this.client.update({
         TableName: this.TABLE_NAME,
         Key: { <%= typescriptTypeIDPropertyKey %> },
         UpdateExpression: expression,
@@ -134,7 +134,7 @@ export class <%= classify(name) %>Datasource {
         ExpressionAttributeValues: expressionAttributeValues,
       }).promise();
 
-      return !!Attributes;
+      return !!result;
     } catch (error) {
       console.dir(error, { depth: 4 });
       return error;
@@ -149,12 +149,12 @@ export class <%= classify(name) %>Datasource {
     try {
       const { <%= typescriptTypeIDPropertyKey %> } = input;
 
-      const { Attributes } = await this.client.delete({
+      const result = await this.client.delete({
         TableName: this.TABLE_NAME,
         Key: { <%= typescriptTypeIDPropertyKey %> },
       }).promise();
 
-      return !!Attributes;
+      return !!result;
     } catch (error) {
       console.dir(error, { depth: 4 });
       return error;
