@@ -4,20 +4,20 @@ import {
 } from 'aws-sdk/clients/dynamodb';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  Todo,
-  TodoPaginated,
-  QuerySpecificTodoParams,
-  QueryTodosParams,
-  MutationCreateTodo,
-  MutationUpdateTodo,
-  MutationDeleteTodo,
+  <%= classify(name) %>,
+  <%= classify(name) %>Paginated,
+  QuerySpecific<%= classify(name) %>Params,
+  Query<%= classify(name) %>sParams,
+  MutationCreate<%= classify(name) %>,
+  MutationUpdate<%= classify(name) %>,
+  MutationDelete<%= classify(name) %>,
 } from './<%= name %>.type';
 import { formatInputParams } from './<%= name %>.util';
 
 /**
- * @description Todo datasource for query modifying the <%= name %>
+ * @description <%= classify(name) %> datasource for query modifying the <%= name %>
  */
-export class TodoDatasource {
+export class <%= classify(name) %>Datasource {
   private client: DocumentClient;
 
   private TABLE_NAME = '<%= env %>_<%= name %>';
@@ -30,7 +30,7 @@ export class TodoDatasource {
    * @description Query specific <%= name %>
    * @param input
    */
-  async querySpecificTodo(input: QuerySpecificTodoParams): Promise<Todo> {
+  async querySpecific<%= classify(name) %>(input: QuerySpecific<%= classify(name) %>Params): Promise<<%= classify(name) %>> {
     try {
       const { <%= typescriptTypeIDPropertyKey %> } = input;
 
@@ -39,7 +39,7 @@ export class TodoDatasource {
         Key: { <%= typescriptTypeIDPropertyKey %> },
       }).promise();
 
-      return Item as Todo;
+      return Item as <%= classify(name) %>;
     } catch (error) {
       console.dir(error, { depth: 4 });
       return error;
@@ -50,7 +50,7 @@ export class TodoDatasource {
    * @description Query paginated <%= name %>s
    * @param input
    */
-  async queryPaginatedTodos(input: QueryTodosParams): Promise<TodoPaginated> {
+  async queryPaginated<%= classify(name) %>s(input: Query<%= classify(name) %>sParams): Promise<<%= classify(name) %>Paginated> {
     try {
       const { limit, startKey, <%= name %>Input = {} } = input;
 
@@ -79,7 +79,7 @@ export class TodoDatasource {
       const { Items, Count, LastEvaluatedKey } = await this.client.scan(params).promise();
 
       return ({
-        items: Items as Todo[],
+        items: Items as <%= classify(name) %>[],
         count: Count,
         endKey: LastEvaluatedKey ? LastEvaluatedKey.<%= typescriptTypeIDPropertyKey %> : null,
       });
@@ -93,7 +93,7 @@ export class TodoDatasource {
    * @description create <%= name %>
    * @param input
    */
-  async createTodo(input: MutationCreateTodo): Promise<boolean> {
+  async create<%= classify(name) %>(input: MutationCreate<%= classify(name) %>): Promise<boolean> {
     try {
       const { <%= name %>Input } = input;
 
@@ -116,7 +116,7 @@ export class TodoDatasource {
    * @description update <%= name %>
    * @param input
    */
-  async updateTodo(input: MutationUpdateTodo): Promise<boolean> {
+  async update<%= classify(name) %>(input: MutationUpdate<%= classify(name) %>): Promise<boolean> {
     try {
       const { <%= typescriptTypeIDPropertyKey %>, <%= name %>Input } = input;
 
@@ -145,7 +145,7 @@ export class TodoDatasource {
    * @description delete <%= name %>
    * @param input
    */
-  async deleteTodo(input: MutationDeleteTodo): Promise<boolean> {
+  async delete<%= classify(name) %>(input: MutationDelete<%= classify(name) %>): Promise<boolean> {
     try {
       const { <%= typescriptTypeIDPropertyKey %> } = input;
 
