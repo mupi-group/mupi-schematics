@@ -16,6 +16,7 @@ module "lambda_function" {
       patterns = [
         "!.*/.*\\.txt",    # Skip all txt files recursively
         "node_modules/.+", # Include all node_modules
+        "!node_modules/aws-sdk/.+", # Exclude all node_modules/aws-sdk
       ],
     }
   ]
@@ -26,14 +27,39 @@ module "lambda_function" {
     "Version": "2012-10-17",
     "Statement": [
         {
+            "Sid": "ReadWriteTable",
             "Effect": "Allow",
             "Action": [
-                "dynamodb:DescribeStream",
-                "dynamodb:GetRecords",
-                "dynamodb:GetShardIterator",
-                "dynamodb:ListStreams"
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem"
             ],
-            "Resource": ["*"]
+            "Resource": "arn:aws:dynamodb:ap-southeast-1:731212365611:table/todo"
+        },
+        {
+            "Sid": "GetStreamRecords",
+            "Effect": "Allow",
+            "Action": "dynamodb:GetRecords",
+            "Resource": "arn:aws:dynamodb:ap-southeast-1:731212365611:table/todo/stream/2021-07-29T13:51:50.877"
+        },
+        {
+            "Sid": "WriteLogStreamsAndGroups",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "CreateLogGroup",
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "*"
         }
     ]
 }
