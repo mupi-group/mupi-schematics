@@ -35,7 +35,7 @@ export const formatUpdateInputParams = (input: <%= classify(name) %>Input) => {
   Object.keys(input).forEach((key) => {
     // handle expression
     if (!updateExpression) updateExpression += ` SET #${key} = :${key}`;
-    updateExpression += `, SET #${key} = :${key}`;
+    else updateExpression += `, SET #${key} = :${key}`;
 
     expressionAttributeNames[`#${key}`] = key;
     expressionAttributeValues[`:${key}`] = input[key];

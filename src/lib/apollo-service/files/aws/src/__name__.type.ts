@@ -1,10 +1,5 @@
 export type <%= classify(name) %> = {
-  // ID
-  <%= typescriptTypeIDPropertyKey %>: string;
-  // <%= name %> name
-  name: string;
-  // <%= name %> status
-  status: number;
+<%= typescriptTypeItems %>
 };
 
 export type <%= classify(name) %>Paginated = {
@@ -14,10 +9,7 @@ export type <%= classify(name) %>Paginated = {
 };
 
 export type <%= classify(name) %>Input = {
-  // <%= name %> name
-  name?: string;
-  // <%= name %> status
-  status?: number;
+<%= typescriptTypeInputItems %>
 };
 
 export type QuerySpecific<%= classify(name) %>Params = { <%= typescriptTypeIDPropertyKey %>: string };

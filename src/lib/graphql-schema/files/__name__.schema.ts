@@ -18,7 +18,7 @@ export const <%= name %>TypeDefs = gql`
 
   type Query {
     <%= name %>(<%= graphqlSchemaIDPropertyKey %>: String!): <%= classify(name) %>
-    <%= name %>s(<%= name %>Input: <%= classify(name) %>Input, cursor: Int, pointer: Int): <%= classify(name) %>Paginated
+    <%= name %>s(<%= name %>Input: <%= classify(name) %>Input, limit: Int, startKey: String): <%= classify(name) %>Paginated
   }
 
   type Mutation {

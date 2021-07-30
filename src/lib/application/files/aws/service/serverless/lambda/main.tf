@@ -27,59 +27,123 @@ module "lambda_function" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "ReadWriteTable",
-            "Effect": "Allow",
             "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:GetItem",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PutItem",
-                "dynamodb:UpdateItem"
+                "dynamodb:*",
+                "dax:*",
+                "application-autoscaling:DeleteScalingPolicy",
+                "application-autoscaling:DeregisterScalableTarget",
+                "application-autoscaling:DescribeScalableTargets",
+                "application-autoscaling:DescribeScalingActivities",
+                "application-autoscaling:DescribeScalingPolicies",
+                "application-autoscaling:PutScalingPolicy",
+                "application-autoscaling:RegisterScalableTarget",
+                "cloudwatch:DeleteAlarms",
+                "cloudwatch:DescribeAlarmHistory",
+                "cloudwatch:DescribeAlarms",
+                "cloudwatch:DescribeAlarmsForMetric",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics",
+                "cloudwatch:PutMetricAlarm",
+                "cloudwatch:GetMetricData",
+                "datapipeline:ActivatePipeline",
+                "datapipeline:CreatePipeline",
+                "datapipeline:DeletePipeline",
+                "datapipeline:DescribeObjects",
+                "datapipeline:DescribePipelines",
+                "datapipeline:GetPipelineDefinition",
+                "datapipeline:ListPipelines",
+                "datapipeline:PutPipelineDefinition",
+                "datapipeline:QueryObjects",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "iam:GetRole",
+                "iam:ListRoles",
+                "kms:DescribeKey",
+                "kms:ListAliases",
+                "sns:CreateTopic",
+                "sns:DeleteTopic",
+                "sns:ListSubscriptions",
+                "sns:ListSubscriptionsByTopic",
+                "sns:ListTopics",
+                "sns:Subscribe",
+                "sns:Unsubscribe",
+                "sns:SetTopicAttributes",
+                "lambda:CreateFunction",
+                "lambda:ListFunctions",
+                "lambda:ListEventSourceMappings",
+                "lambda:CreateEventSourceMapping",
+                "lambda:DeleteEventSourceMapping",
+                "lambda:GetFunctionConfiguration",
+                "lambda:DeleteFunction",
+                "resource-groups:ListGroups",
+                "resource-groups:ListGroupResources",
+                "resource-groups:GetGroup",
+                "resource-groups:GetGroupQuery",
+                "resource-groups:DeleteGroup",
+                "resource-groups:CreateGroup",
+                "tag:GetResources",
+                "kinesis:ListStreams",
+                "kinesis:DescribeStream",
+                "kinesis:DescribeStreamSummary"
             ],
-            "Resource": "arn:aws:dynamodb:ap-southeast-1:731212365611:table/todo"
-        },
-        {
-            "Sid": "GetStreamRecords",
             "Effect": "Allow",
-            "Action": "dynamodb:GetRecords",
-            "Resource": "arn:aws:dynamodb:ap-southeast-1:731212365611:table/todo/stream/2021-07-29T13:51:50.877"
-        },
-        {
-            "Sid": "WriteLogStreamsAndGroups",
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogStream",
-                "logs:PutLogEvents"
-            ],
             "Resource": "*"
         },
         {
-            "Sid": "CreateLogGroup",
+            "Action": "cloudwatch:GetInsightRuleReport",
             "Effect": "Allow",
-            "Action": "logs:CreateLogGroup",
-            "Resource": "*"
+            "Resource": "arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*"
+        },
+        {
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Effect": "Allow",
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": [
+                        "application-autoscaling.amazonaws.com",
+                        "application-autoscaling.amazonaws.com.cn",
+                        "dax.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "replication.dynamodb.amazonaws.com",
+                        "dax.amazonaws.com",
+                        "dynamodb.application-autoscaling.amazonaws.com",
+                        "contributorinsights.dynamodb.amazonaws.com",
+                        "kinesisreplication.dynamodb.amazonaws.com"
+                    ]
+                }
+            }
         }
     ]
 }
 EOF
   # store lambda in S3
   store_on_s3 = true
-//  s3_bucket = data.aws_s3_bucket.serverless_artifacts_bucket.id
   s3_bucket = var.s3_bucket
 
   # vpc
   attach_network_policy = true
   vpc_subnet_ids = var.subnets
-//  vpc_subnet_ids = data.aws_subnet_ids.aws_subnet_ids_public.ids
   vpc_security_group_ids = var.vpc_security_group_ids
-//  vpc_security_group_ids = [data.aws_security_group.serverless_security_group.id]
 
   allowed_triggers = {
     AllowExecutionFromAPIGateway = {
       service    = "apigateway"
-//      source_arn = "${aws_api_gateway_api_key.apiKey.arn}/*/*/*"
       source_arn = "${var.api_gateway_api_execution_arn}/*/*/*"
     }
   }
@@ -91,13 +155,11 @@ module "lambda_security_group" {
 
   name        = "lambda-sg-${var.env}-${var.name}-${var.model}"
   description = "Lambda security group for example usage"
-//  vpc_id      = data.aws_subnet_ids.aws_subnet_ids_public.vpc_id
   vpc_id = var.vpc_id
 
   computed_ingress_with_source_security_group_id = [
     {
       rule                     = "http-80-tcp"
-//      source_security_group_id = module.api_gateway_security_group.security_group_id
       source_security_group_id = var.api_gateway_security_group_id
     }
   ]

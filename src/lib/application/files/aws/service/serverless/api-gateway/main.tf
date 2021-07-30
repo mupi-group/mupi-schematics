@@ -14,7 +14,6 @@ module "api_gateway" {
 
   integrations = {
     "ANY /" = {
-//      lambda_arn             = module.adv_lambda_function.lambda_function_arn
       lambda_arn             = var.lambda_arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 12000
@@ -23,14 +22,12 @@ module "api_gateway" {
     "GET /alb-internal-route" = {
       connection_type    = "VPC_LINK"
       vpc_link           = "lambda-vpc"
-//      integration_uri    = module.alb.http_tcp_listener_arns[0]
       integration_uri = var.integration_uri
       integration_type   = "HTTP_PROXY"
       integration_method = "ANY"
     }
 
     "$default" = {
-//      lambda_arn = module.adv_lambda_function.lambda_function_arn
       lambda_arn = var.lambda_arn
     }
   }
@@ -39,7 +36,6 @@ module "api_gateway" {
     lambda-vpc = {
       name               = "${var.env}-${var.name}-${var.model}-vpc"
       security_group_ids = [module.api_gateway_security_group.security_group_id]
-//      subnet_ids         = data.aws_subnet_ids.aws_subnet_ids_public.ids
       subnet_ids = var.subnets
     }
   }
@@ -56,7 +52,6 @@ module "api_gateway_security_group" {
 
   name        = "api-gateway-sg-${var.env}-${var.name}-${var.model}"
   description = "API Gateway group for example usage"
-//  vpc_id      = data.aws_subnet_ids.aws_subnet_ids_public.vpc_id
   vpc_id = var.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
