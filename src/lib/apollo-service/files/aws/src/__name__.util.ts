@@ -27,15 +27,22 @@ export const formatScanInputParams = (input: <%= classify(name) %>Input) => {
   return result;
 };
 
-export const formatUpdateInputParams = (input: <%= classify(name) %>Input) => {
+export const formatInputParams = (input: <%= classify(name) %>Input, update: boolean) => {
   let updateExpression: UpdateExpression = '';
   const expressionAttributeNames: ExpressionAttributeNameMap = {};
   const expressionAttributeValues: ExpressionAttributeValueMap = {};
 
   Object.keys(input).forEach((key) => {
-    // handle expression
-    if (!updateExpression) updateExpression += ` SET #${key} = :${key}`;
-    else updateExpression += `, SET #${key} = :${key}`;
+    if (update) {
+      // handle expression
+      if (!updateExpression) updateExpression += ` SET #${key} = :${key}`;
+      else updateExpression += `, SET #${key} = :${key}`;
+    } else {
+      // handle expression
+      // eslint-disable-next-line no-lonely-if
+      if (!updateExpression) updateExpression += `#${key} = :${key}`;
+      else updateExpression += `, #${key} = :${key}`;
+    }
 
     expressionAttributeNames[`#${key}`] = key;
     expressionAttributeValues[`:${key}`] = input[key];
