@@ -1,7 +1,7 @@
 module "<%= name %>_table" {
   source = "terraform-aws-modules/dynamodb-table/aws"
 
-  name     = "<%= name %>"
+  name     = "<%= env %>_<%= name %>"
   hash_key = "id"
 
   stream_enabled = true
